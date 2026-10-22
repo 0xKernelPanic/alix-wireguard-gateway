@@ -355,22 +355,6 @@ przestanie działać albo VPN nie będzie już potrzebny, wystarczy wyjąć wtyc
 i usunąć przekierowanie portu w routerze. Wyłączone urządzenie jest zawsze
 bezpieczne.
 
-## Czego się nauczyłem
-
-- Objaw to nie diagnoza. „Komputer się wyłącza” okazało się wygaszoną konsolą.
-- Ta sama klawiatura może działać w GRUB-ie i nie działać chwilę później, bo obsługuje ją ktoś inny.
-- Dysk, z którego działa system, da się nadpisać, jeśli wszystko potrzebne do zapisu jest już w RAM-ie. Łącznie z `sync`.
-- W WireGuardzie `AllowedIPs` po stronie serwera to routing, a nie preferencja.
-- Automat, którego nie przetestowało się bez terminala, nie jest przetestowany.
-
-## Do zrobienia
-
-- [ ] test z zewnątrz (LTE, publiczny endpoint)
-- [ ] przed oddaniem: nowy klucz serwera, usunięcie testowych peerów, backup konfiguracji
-- [ ] u kolegi: rezerwacja DHCP, przekierowanie UDP 51820, sprawdzenie CGNAT, ewentualnie DuckDNS
-- [ ] NAS na telewizorze: wbudowane DLNA w DSM, a jeśli nie wystarczy, MiniDLNA na ALIX-ie
-- [ ] sprawdzić sprzętowy watchdog w Winbond W83627HG (`w83627hf_wdt`)
-
 <details>
 <summary>Specyfikacja sprzętu</summary>
 
