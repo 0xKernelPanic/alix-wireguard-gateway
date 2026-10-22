@@ -1,0 +1,14 @@
+#!/bin/sh
+# Aktualizacja w obrębie bieżącej gałęzi OpenWrt (np. 25.12.x), bez skoków na nową gałąź.
+# Uruchamiane z crona. owut buduje na serwerze ASU obraz z pakietami zainstalowanymi na urządzeniu.
+. /etc/openwrt_release
+BRANCH=${DISTRIB_RELEASE%.*}      # 25.12.6 -> 25.12
+CUR=${DISTRIB_RELEASE##*.}        # 25.12.6 -> 6
+PATCH=$(wget -qO- https://downloads.openwrt.org/.versions.json \
+  | jsonfilter -e '@.versions_list[*]' \
+  | grep "^$BRANCH\.[0-9][0-9]*$" | sed "s/^$BRANCH\.//" | sort -n | tail -n1)
+[ -n "$PATCH" ] || { logger -t auto-upgrade "brak listy wersji"; exit 0; }
+[ "$PATCH" -gt "$CUR" ] || { logger -t auto-upgrade "aktualne: $DISTRIB_RELEASE"; exit 0; }
+logger -t auto-upgrade "aktualizacja $DISTRIB_RELEASE -> $BRANCH.$PATCH"
+# -V jest konieczne: domyślnie owut przebudowuje zainstalowaną wersję
+owut upgrade -V "$BRANCH.$PATCH" </dev/null 2>&1 | logger -t auto-upgrade

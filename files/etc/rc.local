@@ -1,0 +1,8 @@
+# Zabezpieczenie po aktualizacji: jeśli nowy obraz nie ma WireGuarda, doinstaluj go.
+( sleep 120
+  apk info -e kmod-wireguard >/dev/null 2>&1 || {
+    logger -t rc.local "brak WireGuarda - doinstalowuje"
+    apk update && apk add luci-proto-wireguard qrencode luci-app-ddns ddns-scripts-services
+    /etc/init.d/rpcd restart; /etc/init.d/network restart
+  } ) &
+exit 0

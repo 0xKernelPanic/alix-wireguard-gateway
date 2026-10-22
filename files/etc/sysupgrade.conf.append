@@ -1,0 +1,3 @@
+/usr/bin/auto-upgrade
+/etc/crontabs/root
+/etc/rc.local
